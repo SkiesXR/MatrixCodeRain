@@ -1,0 +1,15 @@
+{
+  "name": "matrixcode",
+  "version": "1.0.0",
+  "description": "Recreation of raining Matrix code simulation",
+  "main": "main.js",
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SkiesXR",
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "1.2.1"
+  }
+}
