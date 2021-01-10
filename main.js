@@ -9,8 +9,6 @@ const createLetter = (char) => {
   return letter
 }
 
-const removeLetter = (letter) => setTimeout(() => letter.remove(), 3000)
-
 // Add & remove letter from DOM
 const createAndDestroyLetter = (char, containerIndex) => {
   const letter = createLetter(char)
@@ -28,11 +26,11 @@ const createContainer = (containerIndex) => {
 }
 
 // Iterate through length of alphabet creating & destroying random chars
-const fillContainer = (containerIdx) => {
+const fillContainer = (containerIndex) => {
   for (let i = 0; i < 100; i++) {
     const idx = Math.floor(Math.random() * alphabet.length)
     setTimeout(() => {
-      createAndDestroyLetter(alphabet[idx], containerIdx)
+      createAndDestroyLetter(alphabet[idx], containerIndex)
     }, i * 100)
   }
 }
@@ -41,6 +39,7 @@ for (let i = 0; i < 100; i++) {
   setTimeout(() => {
     createContainer(i)
     fillContainer(i)
+    setTimeout(() => document.getElementById(`container-${i}`).remove(), 15000)
   }, i * 1000)
 }
 
