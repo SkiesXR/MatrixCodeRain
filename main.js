@@ -28,8 +28,8 @@ const createContainer = (containerIndex) => {
 }
 
 // Iterate through length of alphabet creating & destroying random chars
-const loopThroughAlphabet = (containerIdx) => {
-  for (let i = 0; i < alphabet.length; i++) {
+const fillContainer = (containerIdx) => {
+  for (let i = 0; i < 100; i++) {
     const idx = Math.floor(Math.random() * alphabet.length)
     setTimeout(() => {
       createAndDestroyLetter(alphabet[idx], containerIdx)
@@ -40,7 +40,7 @@ const loopThroughAlphabet = (containerIdx) => {
 for (let i = 0; i < 100; i++) {
   setTimeout(() => {
     createContainer(i)
-    loopThroughAlphabet(i)
+    fillContainer(i)
   }, i * 1000)
 }
 
