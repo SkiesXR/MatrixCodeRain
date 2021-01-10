@@ -24,7 +24,7 @@ span {
 }
 
 .animated {
-  animation: anim 10s ease forwards;
+  animation: anim 5s ease forwards;
 }
 
 @keyframes anim {

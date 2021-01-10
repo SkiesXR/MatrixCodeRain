@@ -38,7 +38,7 @@ const createLetter = (char) => {
 const createAndDestroyLetter = (char, containerIndex) => {
   const letter = createLetter(char)
   setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
-  setTimeout(() => letter.classList.add('invisible'), 10000)
+  setTimeout(() => letter.classList.add('invisible'), 6000)
 }
 
 const createContainer = (containerIndex) => {
