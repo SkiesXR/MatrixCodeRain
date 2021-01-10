@@ -1,5 +1,5 @@
 import { shuffle, createContainers } from './utils.js'
-import { filling, finished } from './containerStates.js'
+import { filling, finished } from './constants.js'
 
 (function createMatrixCode () {
   // vars

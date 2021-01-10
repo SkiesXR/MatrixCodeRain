@@ -1,4 +1,4 @@
-import { empty } from './containerStates.js'
+import { empty } from './constants.js'
 
 const containerWidth = 15  // width (in pixels) of each container
 const numContainers = Math.floor(window.innerWidth / containerWidth)  // number of vertical containers of Matrix code
