@@ -1,4 +1,3 @@
-const container = document.getElementById('container')  // this element wraps all the body content
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('')
 
 // Create the letter element, have it animate from white to green and then remove opacity
@@ -10,21 +9,36 @@ const createLetter = (char) => {
   return letter
 }
 
-const addLetter = (letter) => setTimeout(() => container.appendChild(letter), 1000)
 const removeLetter = (letter) => setTimeout(() => letter.remove(), 3000)
-const hideLetter = (letter) => setTimeout(() => letter.classList.add('invisible'), 3000)
 
 // Add & remove letter from DOM
-const createAndDestroyLetter = (char) => {
+const createAndDestroyLetter = (char, containerIndex) => {
   const letter = createLetter(char)
-  addLetter(letter)
-  hideLetter(letter)
+  setTimeout(() => {
+    document.getElementById(`container-${containerIndex}`).appendChild(letter)
+  }, 1000)
+  setTimeout(() => letter.classList.add('invisible'), 3000)
+}
+
+const createContainer = (containerIndex) => {
+  const container = document.createElement('div')
+  container.setAttribute('id', `container-${containerIndex}`)
+  container.className = 'container'
+  document.body.appendChild(container)
 }
 
 // Iterate through alphabet, create / destroy all chars
-const loopThroughAlphabet = () => alphabet.forEach((char, i) => {
-  setTimeout(() => createAndDestroyLetter(char), i * 1000)
+const loopThroughAlphabet = (containerIdx) => alphabet.forEach((char, i) => {
+  setTimeout(() => {
+    createAndDestroyLetter(char, containerIdx)
+  }, i * 1000)
 })
 
-loopThroughAlphabet()
+for (let i = 0; i < 10; i++) {
+  setTimeout(() => {
+    createContainer(i)
+    loopThroughAlphabet(i)
+  }, i * 1000)
+}
+
 
