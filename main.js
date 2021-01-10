@@ -17,7 +17,7 @@ const createAndDestroyLetter = (char, containerIndex) => {
   setTimeout(() => {
     document.getElementById(`container-${containerIndex}`).appendChild(letter)
   }, 1000)
-  setTimeout(() => letter.classList.add('invisible'), 3000)
+  setTimeout(() => letter.classList.add('invisible'), 10000)
 }
 
 const createContainer = (containerIndex) => {
@@ -27,12 +27,15 @@ const createContainer = (containerIndex) => {
   document.body.appendChild(container)
 }
 
-// Iterate through alphabet, create / destroy all chars
-const loopThroughAlphabet = (containerIdx) => alphabet.forEach((char, i) => {
-  setTimeout(() => {
-    createAndDestroyLetter(char, containerIdx)
-  }, i * 100)
-})
+// Iterate through length of alphabet creating & destroying random chars
+const loopThroughAlphabet = (containerIdx) => {
+  for (let i = 0; i < alphabet.length; i++) {
+    const idx = Math.floor(Math.random() * alphabet.length)
+    setTimeout(() => {
+      createAndDestroyLetter(alphabet[idx], containerIdx)
+    }, i * 100)
+  }
+}
 
 for (let i = 0; i < 100; i++) {
   setTimeout(() => {
