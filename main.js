@@ -11,24 +11,18 @@ const createLetter = (char) => {
 }
 
 const addLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
-const removeLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(letter.remove()), 3000))
+const removeLetter = (letter) => setTimeout(() => resolve(letter.remove()), 3000)
+const hideLetter = (letter) => setTimeout(() => letter.classList.add('invisible'), 3000)
 
 // Add & remove letter from DOM
-const createAndDestroyLetter = async (char) => {
+const createAndDestroyLetter = (char) => {
   const letter = createLetter(char)
-
-  try {
-    await addLetter(letter)
-    removeLetter(letter)
-  } catch (e) {
-    console.log('failed to create & destroy letter')
-  }
+  addLetter(letter)
+  hideLetter(letter)
 }
 
 // Iterate through alphabet, create / destroy all chars
 alphabet.forEach((char, i) => {
-  setTimeout(() => {
-      createAndDestroyLetter(char)
-  }, i * 1000)
+  setTimeout(() => createAndDestroyLetter(char), i * 1000)
 })
 
