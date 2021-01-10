@@ -2,6 +2,7 @@ const containerWidth = 15  // width (in pixels) of each container
 const characterHeight = 18 // height (in pixels) of each character
 const characterCreationDelay = 100 // delay in milliseconds when creating new characters
 const containerCreationDelay = 250 // delay in milliseconds when creating new containers
+const rerunMatrixCodeDelay = 22000 // delay in milliseconds to rerun the simulation
 const numContainers = window.innerWidth / containerWidth  // number of vertical containers of Matrix code
 const numVerticalCharacters = window.innerHeight / characterHeight  // number of characters to display in each container
 const alphabet = '日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789Z:・."=*+-<>¦｜çﾘ'.toUpperCase().split('')  // characters to display
@@ -77,15 +78,22 @@ const createContainers = () => {
   return containers
 }
 
-(function createMatrixCode () {
+function createMatrixCode () {
   const containerIndexes = createContainers()
   const shuffledContainerIndexes = shuffle(containerIndexes)
   
   shuffledContainerIndexes.forEach((containerIndex, i) => {
+    if (i === shuffledContainerIndexes.length - 1) {
+      setTimeout(() => destroyAndRerun(), rerunMatrixCodeDelay)
+    }
     setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
   })
-})()
+}
 
-/* Problems to solve
-- Once all characters in container disappear, allow it to be fillable again
-*/
+// TODO: A bit too hacky.. need a cleaner solution
+const destroyAndRerun = () => {
+  document.body.innerHTML = ""
+  createMatrixCode()
+}
+
+createMatrixCode()
