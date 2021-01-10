@@ -1,23 +1,28 @@
 // 'container' element wraps all the body content
 const container = document.getElementById('container')
 
-// create a letter and have it transition from white to green
+// create a letter. Have it transition from white to green, then remove it from the DOM
 const createAndDestroyLetter = async () => {
-  const letter = document.createElement('span')
-  letter.innerText = 'a'
-  letter.setAttribute('id', 'a')
-  letter.className = 'animated'
+  const letter = createLetter()
 
-  // attempt to create & destroy letter. Log error if this process fails
   try {
-    await create(letter)
-    destroy(letter)
+    await addLetter(letter)
+    removeLetter(letter)
   } catch (e) {
     console.log('failed to create & destroy letter')
   }
 }
 
-const create = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
-const destroy = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(letter.remove()), 3000))
+// Create the letter element
+const createLetter = () => {
+  const letter = document.createElement('span')
+  letter.innerText = 'a'
+  letter.setAttribute('id', 'a')
+  letter.className = 'animated'
+  return letter
+}
+
+const addLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
+const removeLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(letter.remove()), 3000))
 
 createAndDestroyLetter()
