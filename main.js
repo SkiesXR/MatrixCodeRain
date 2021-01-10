@@ -2,7 +2,7 @@
 const container = document.getElementById('container')
 
 // create a letter and have it transition from white to green
-const createAndDestroyLetter = () => {
+const createAndDestroyLetter = async () => {
   const letter = document.createElement('span')
   letter.innerText = 'a'
   letter.setAttribute('id', 'a')
@@ -10,7 +10,8 @@ const createAndDestroyLetter = () => {
 
   // attempt to create & destroy letter. Log error if this process fails
   try {
-    create(letter).then(() => destroy(letter))
+    await create(letter)
+    destroy(letter)
   } catch (e) {
     console.log('failed to create & destroy letter')
   }
