@@ -58,7 +58,6 @@ const fillContainer = (containerIndex) => {
   }
 }
 
-
 const createContainers = () => {
   const containers = []
   for (let i = 0; i < numContainers; i++) {
