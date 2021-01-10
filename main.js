@@ -34,7 +34,7 @@ const loopThroughAlphabet = (containerIdx) => alphabet.forEach((char, i) => {
   }, i * 100)
 })
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   setTimeout(() => {
     createContainer(i)
     loopThroughAlphabet(i)
