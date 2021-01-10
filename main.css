@@ -15,12 +15,16 @@ body {
   width: min-content;
 }
 
+span {
+  width: 15px;
+}
+
 .invisible {
   visibility: hidden;
 }
 
 .animated {
-  animation: anim 10s ease forwards;
+  /* animation: anim 10s ease forwards; */
 }
 
 @keyframes anim {
