@@ -1,6 +1,7 @@
 const containerWidth = 15  // width (in pixels) of each container
 const characterHeight = 18 // height (in pixels) of each character
 const characterCreationDelay = 100 // delay in milliseconds when creating new characters
+const containerCreationDelay = 250 // delay in milliseconds when creating new containers
 const numContainers = window.innerWidth / containerWidth  // number of vertical containers of Matrix code
 const numVerticalCharacters = window.innerHeight / characterHeight  // number of characters to display in each container
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('')  // characters to display
@@ -74,7 +75,7 @@ const createContainers = () => {
   const shuffledContainerIndexes = shuffle(containerIndexes)
   
   shuffledContainerIndexes.forEach((containerIndex, i) => {
-    setTimeout(() => fillContainer(containerIndex), i * 1000)
+    setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
   })
 })()
 
