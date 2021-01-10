@@ -4,7 +4,7 @@ const characterCreationDelay = 100 // delay in milliseconds when creating new ch
 const containerCreationDelay = 250 // delay in milliseconds when creating new containers
 const numContainers = window.innerWidth / containerWidth  // number of vertical containers of Matrix code
 const numVerticalCharacters = window.innerHeight / characterHeight  // number of characters to display in each container
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('')  // characters to display
+const alphabet = '日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789Z:・."=*+-<>¦｜çﾘ'.toUpperCase().split('')  // characters to display
 
 // Fisher-Yates shuffle
 const shuffle = (array) => {
