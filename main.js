@@ -1,3 +1,9 @@
+// container states
+const empty = 'empty'
+const filling = 'filling'
+const finished = 'finished'
+
+// vars
 const containerWidth = 15  // width (in pixels) of each container
 const characterHeight = 18 // height (in pixels) of each character
 const characterCreationDelay = 100 // delay in milliseconds when creating new characters
@@ -27,28 +33,6 @@ const shuffle = (array) => {
   return array;
 }
 
-// Create the letter element, have it animate from white to green and then remove opacity
-const createLetter = (char, containerIndex, verticalCharacterIndex) => {
-  const letter = document.createElement('span')
-  letter.innerText = `${char}`
-  letter.setAttribute('id', `${containerIndex}-${verticalCharacterIndex}`)
-  return letter
-}
-
-const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
-  const letter = createLetter(char, containerIndex, verticalCharacterIndex)
-  setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
-
-  // Randomly determine letters that should swap characters
-  Math.random() < 0.5 && setTimeout(() => changeLetter(letter), 2000)
-}
-
-// Randomly change letters before they disappear
-const changeLetter = (letter) => {
-  const randomCharIdx = Math.floor(Math.random() * alphabet.length)
-  letter.innerText = `${alphabet[randomCharIdx]}`
-}
-
 // Create a vertical container that holds Matrix characters
 const createContainer = (containerIndex) => {
   const container = document.createElement('div')
@@ -57,43 +41,67 @@ const createContainer = (containerIndex) => {
   document.body.appendChild(container)
 }
 
-// Iterate through length of container creating & destroying random chars
-const fillContainer = (containerIndex) => {
-  for (let i = 0; i < numVerticalCharacters; i++) {
-    const idx = Math.floor(Math.random() * alphabet.length)
-    setTimeout(() => {
-      createAndDestroyLetter(alphabet[idx], containerIndex, i)
-    }, i * characterCreationDelay)
-  }
-}
-
 // Create containers across the width of the screen
 const createContainers = () => {
   const containers = []
+  const containerStates = {}
   for (let i = 0; i < numContainers; i++) {
     createContainer(i)
     containers.push(i)
   }
 
-  return containers
+  containers.forEach(container => containerStates[container] = 'empty')
+  return containerStates
 }
 
 function createMatrixCode () {
-  const containerIndexes = createContainers()
-  const shuffledContainerIndexes = shuffle(containerIndexes)
+  this.state = { ... createContainers()}
+  const shuffledContainerIndexes = shuffle(Object.keys(this.state))
   
   shuffledContainerIndexes.forEach((containerIndex, i) => {
-    if (i === shuffledContainerIndexes.length - 1) {
-      setTimeout(() => destroyAndRerun(), rerunMatrixCodeDelay)
-    }
+    // if (i === shuffledContainerIndexes.length - 1) {
+    //   setTimeout(() => destroyAndRerun(), rerunMatrixCodeDelay)
+    // }
     setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
   })
-}
 
-// TODO: A bit too hacky.. need a cleaner solution
-const destroyAndRerun = () => {
+  // Create the letter element, have it animate from white to green and then remove opacity
+  const createLetter = (char, containerIndex, verticalCharacterIndex) => {
+    const letter = document.createElement('span')
+    letter.innerText = `${char}`
+    letter.setAttribute('id', `${containerIndex}-${verticalCharacterIndex}`)
+    return letter
+  }
+
+  // Randomly change letters before they disappear
+  const changeLetter = (letter) => {
+    const randomCharIdx = Math.floor(Math.random() * alphabet.length)
+    letter.innerText = `${alphabet[randomCharIdx]}`
+  }
+
+  const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
+    const letter = createLetter(char, containerIndex, verticalCharacterIndex)
+    setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
+
+    // Randomly determine letters that should swap characters
+    Math.random() < 0.5 && setTimeout(() => changeLetter(letter), 2000)
+  }
+
+  // Iterate through length of container creating & destroying random chars
+  const fillContainer = (containerIndex) => {
+    for (let i = 0; i < numVerticalCharacters; i++) {
+      const idx = Math.floor(Math.random() * alphabet.length)
+      setTimeout(() => {
+        createAndDestroyLetter(alphabet[idx], containerIndex, i)
+      }, i * characterCreationDelay)
+    }
+  }
+
+  // TODO: A bit too hacky.. need a cleaner solution
+  const destroyAndRerun = () => {
   document.body.innerHTML = ""
   createMatrixCode()
+}
 }
 
 createMatrixCode()
