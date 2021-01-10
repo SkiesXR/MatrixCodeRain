@@ -1,0 +1,16 @@
+body {
+  background-color: black;
+  color: #fff;
+}
+
+.animated {
+  animation: anim 3s ease;
+  animation-delay: 1s;
+}
+
+@keyframes anim {
+  0% { color: #fff }
+  25% { color: #03A062; opacity: 100%; }
+  100% { opacity: 0 }
+}
+
