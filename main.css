@@ -3,6 +3,10 @@ body {
   color: #fff;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .animated {
   animation: anim 3s ease forwards;
 }
