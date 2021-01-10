@@ -78,4 +78,7 @@ const createContainers = () => {
   })
 })()
 
-
+/* Problems to solve
+1) Once all characters in container disappear, allow it to be fillable again
+2) Allow created characters to change to other characters before disappearing
+*/
