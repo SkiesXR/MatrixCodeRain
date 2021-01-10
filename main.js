@@ -22,7 +22,9 @@ const createAndDestroyLetter = (char) => {
 }
 
 // Iterate through alphabet, create / destroy all chars
-alphabet.forEach((char, i) => {
+const loopThroughAlphabet = () => alphabet.forEach((char, i) => {
   setTimeout(() => createAndDestroyLetter(char), i * 1000)
 })
+
+loopThroughAlphabet()
 
