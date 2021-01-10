@@ -31,7 +31,6 @@ const createLetter = (char) => {
   const letter = document.createElement('span')
   letter.innerText = `${char}`
   letter.setAttribute('id', `${char}`)
-  letter.className = 'animated'
   return letter
 }
 
