@@ -16,7 +16,7 @@ body {
 }
 
 span {
-  height: 18px;
+  line-height: 18px;
   animation: anim 5s ease forwards;
 }
 
