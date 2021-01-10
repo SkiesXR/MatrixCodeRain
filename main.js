@@ -10,8 +10,8 @@ const createLetter = (char) => {
   return letter
 }
 
-const addLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
-const removeLetter = (letter) => setTimeout(() => resolve(letter.remove()), 3000)
+const addLetter = (letter) => setTimeout(() => container.appendChild(letter), 1000)
+const removeLetter = (letter) => setTimeout(() => letter.remove(), 3000)
 const hideLetter = (letter) => setTimeout(() => letter.classList.add('invisible'), 3000)
 
 // Add & remove letter from DOM
