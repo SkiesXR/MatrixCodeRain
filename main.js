@@ -82,7 +82,7 @@ function createMatrixCode () {
 
   const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
     const letter = createLetter(char, containerIndex, verticalCharacterIndex)
-    setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
+    document.getElementById(`container-${containerIndex}`).appendChild(letter)
 
     // Randomly determine letters that should swap characters
     Math.random() < 0.5 && setTimeout(() => changeLetter(letter), 2000)
