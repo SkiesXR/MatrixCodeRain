@@ -1,4 +1,4 @@
-// container states
+// container states, used for debugging
 const empty = 'empty'
 const filling = 'filling'
 const finished = 'finished'
