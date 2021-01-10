@@ -25,6 +25,10 @@ const createLetter = (char) => {
 const addLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
 const removeLetter = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(letter.remove()), 3000))
 
-for (const char of alphabet) {
-  createAndDestroyLetter(char)
-}
+// iterate through alphabet, create / destroy all chars
+alphabet.forEach((char, i) => {
+  setTimeout(() => {
+      createAndDestroyLetter(char)
+  }, i * 1000)
+})
+
