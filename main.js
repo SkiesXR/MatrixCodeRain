@@ -36,11 +36,10 @@ const createLetter = (char, containerIndex, verticalCharacterIndex) => {
 
 const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
   const letter = createLetter(char, containerIndex, verticalCharacterIndex)
-  // Add letter to DOM container
   setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
+
   // Randomly determine letters that should swap characters
   Math.random() < 0.5 && setTimeout(() => changeLetter(letter), 2000)
-  setTimeout(() => letter.classList.add('invisible'), 6000)
 }
 
 // Randomly change letters before they disappear
