@@ -8,9 +8,9 @@ const containerWidth = 15  // width (in pixels) of each container
 const characterHeight = 18 // height (in pixels) of each character
 const characterCreationDelay = 100 // delay in milliseconds when creating new characters
 const containerCreationDelay = 250 // delay in milliseconds when creating new containers
-const rerunMatrixCodeDelay = 22000 // delay in milliseconds to rerun the simulation
-const numContainers = window.innerWidth / containerWidth  // number of vertical containers of Matrix code
-const numVerticalCharacters = window.innerHeight / characterHeight  // number of characters to display in each container
+const containerRefillDelay = Math.floor(Math.random() * 10000) // delay in milliseconds to rerun the simulation
+const numContainers = Math.floor(window.innerWidth / containerWidth)  // number of vertical containers of Matrix code
+const numVerticalCharacters = Math.floor(window.innerHeight / characterHeight)  // number of characters to display in each container
 const alphabet = '日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789Z:・."=*+-<>¦｜çﾘ'.toUpperCase().split('')  // characters to display
 
 // Fisher-Yates shuffle
@@ -59,9 +59,6 @@ function createMatrixCode () {
   const shuffledContainerIndexes = shuffle(Object.keys(this.state))
   
   shuffledContainerIndexes.forEach((containerIndex, i) => {
-    // if (i === shuffledContainerIndexes.length - 1) {
-    //   setTimeout(() => destroyAndRerun(), rerunMatrixCodeDelay)
-    // }
     setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
   })
 
@@ -70,6 +67,10 @@ function createMatrixCode () {
     const letter = document.createElement('span')
     letter.innerText = `${char}`
     letter.setAttribute('id', `${containerIndex}-${verticalCharacterIndex}`)
+    if (verticalCharacterIndex === numVerticalCharacters - 1) {
+      this.state[verticalCharacterIndex] = finished
+      setTimeout(() => emptyAndRefillContainer(containerIndex), containerRefillDelay)
+    }
     return letter
   }
 
@@ -89,6 +90,7 @@ function createMatrixCode () {
 
   // Iterate through length of container creating & destroying random chars
   const fillContainer = (containerIndex) => {
+    this.state[containerIndex] = filling
     for (let i = 0; i < numVerticalCharacters; i++) {
       const idx = Math.floor(Math.random() * alphabet.length)
       setTimeout(() => {
@@ -97,11 +99,11 @@ function createMatrixCode () {
     }
   }
 
-  // TODO: A bit too hacky.. need a cleaner solution
-  const destroyAndRerun = () => {
-  document.body.innerHTML = ""
-  createMatrixCode()
-}
+  const emptyAndRefillContainer = (containerIndex) => {
+    const container = document.getElementById(`container-${containerIndex}`)
+    container.innerHTML = ""
+    fillContainer(containerIndex)
+  }
 }
 
 createMatrixCode()
