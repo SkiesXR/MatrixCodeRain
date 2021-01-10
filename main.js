@@ -27,16 +27,16 @@ const shuffle = (array) => {
 }
 
 // Create the letter element, have it animate from white to green and then remove opacity
-const createLetter = (char) => {
+const createLetter = (char, containerIndex, verticalCharacterIndex) => {
   const letter = document.createElement('span')
   letter.innerText = `${char}`
-  letter.setAttribute('id', `${char}`)
+  letter.setAttribute('id', `${containerIndex}-${verticalCharacterIndex}`)
   return letter
 }
 
 // Add & remove letter from DOM
-const createAndDestroyLetter = (char, containerIndex) => {
-  const letter = createLetter(char)
+const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
+  const letter = createLetter(char, containerIndex, verticalCharacterIndex)
   setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
   setTimeout(() => letter.classList.add('invisible'), 6000)
 }
@@ -53,7 +53,7 @@ const fillContainer = (containerIndex) => {
   for (let i = 0; i < numVerticalCharacters; i++) {
     const idx = Math.floor(Math.random() * alphabet.length)
     setTimeout(() => {
-      createAndDestroyLetter(alphabet[idx], containerIndex)
+      createAndDestroyLetter(alphabet[idx], containerIndex, i)
     }, i * characterCreationDelay)
   }
 }
