@@ -1,62 +1,16 @@
-// container states, used for debugging
-const empty = 'empty'
-const filling = 'filling'
-const finished = 'finished'
-
-// vars
-const containerWidth = 15  // width (in pixels) of each container
-const characterHeight = 18 // height (in pixels) of each character
-const characterCreationDelay = 100 // delay in milliseconds when creating new characters
-const containerCreationDelay = 250 // delay in milliseconds when creating new containers
-const containerRefillDelay = Math.floor(Math.random() * 10000) // delay in milliseconds to rerun the simulation
-const numContainers = Math.floor(window.innerWidth / containerWidth)  // number of vertical containers of Matrix code
-const numVerticalCharacters = Math.floor(window.innerHeight / characterHeight)  // number of characters to display in each container
-const alphabet = 'abcdefghijklmnopqrstuvwxyxz0123456789'.split('')  // characters to display
-
-// Fisher-Yates shuffle
-const shuffle = (array) => {
-  let currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-// Create a vertical container that holds Matrix characters
-const createContainer = (containerIndex) => {
-  const container = document.createElement('div')
-  container.className = 'container'
-  container.setAttribute('id', `container-${containerIndex}`)
-  document.body.appendChild(container)
-}
-
-// Create containers across the width of the screen
-const createContainers = () => {
-  const containers = []
-  const containerStates = {}
-  for (let i = 0; i < numContainers; i++) {
-    createContainer(i)
-    containers.push(i)
-  }
-
-  containers.forEach(container => containerStates[container] = 'empty')
-  return containerStates
-}
+import { shuffle, createContainers } from './utils.js'
+import { filling, finished } from './containerStates.js'
 
 (function createMatrixCode () {
-  this.state = { ... createContainers()}
-  const shuffledContainerIndexes = shuffle(Object.keys(this.state))
+  // vars
+  const characterHeight = 18 // height (in pixels) of each character
+  const characterCreationDelay = 100 // delay in milliseconds when creating new characters
+  const containerCreationDelay = 250 // delay in milliseconds when creating new containers
+  const containerRefillDelay = Math.floor(Math.random() * 10000) // delay in milliseconds to rerun the simulation
+  const numVerticalCharacters = Math.floor(window.innerHeight / characterHeight)  // number of characters to display in each container
+  const alphabet = 'abcdefghijklmnopqrstuvwxyxz0123456789'.split('')  // characters to display
+  const state = { ... createContainers()}
+  const shuffledContainerIndexes = shuffle(Object.keys(state))
   
   shuffledContainerIndexes.forEach((containerIndex, i) => {
     setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
@@ -68,7 +22,7 @@ const createContainers = () => {
     letter.innerText = `${char}`
     letter.setAttribute('id', `${containerIndex}-${verticalCharacterIndex}`)
     if (verticalCharacterIndex === numVerticalCharacters - 1) {
-      this.state[verticalCharacterIndex] = finished
+      state[verticalCharacterIndex] = finished
       setTimeout(() => emptyAndRefillContainer(containerIndex), containerRefillDelay)
     }
     return letter
@@ -90,7 +44,7 @@ const createContainers = () => {
 
   // Iterate through length of container creating & destroying random chars
   const fillContainer = (containerIndex) => {
-    this.state[containerIndex] = filling
+    state[containerIndex] = filling
 
     for (let i = 0; i < numVerticalCharacters; i++) {
       const idx = Math.floor(Math.random() * alphabet.length)
