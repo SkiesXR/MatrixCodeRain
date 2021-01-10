@@ -4,7 +4,7 @@ body {
 }
 
 .animated {
-  animation: anim 3s ease;
+  animation: anim 3s ease forwards;
 }
 
 @keyframes anim {
