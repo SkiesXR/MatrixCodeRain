@@ -1,4 +1,10 @@
+@font-face {
+  font-family: "Matrix";
+  src: url('./MatrixCodeNfi-YPPj.otf');
+}
+
 body {
+  font-family: Matrix;
   background-color: black;
   color: #fff;
   display: flex;

@@ -11,7 +11,7 @@ const containerCreationDelay = 250 // delay in milliseconds when creating new co
 const containerRefillDelay = Math.floor(Math.random() * 10000) // delay in milliseconds to rerun the simulation
 const numContainers = Math.floor(window.innerWidth / containerWidth)  // number of vertical containers of Matrix code
 const numVerticalCharacters = Math.floor(window.innerHeight / characterHeight)  // number of characters to display in each container
-const alphabet = '日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789Z:・."=*+-<>¦｜çﾘ'.toUpperCase().split('')  // characters to display
+const alphabet = 'abcdefghijklmnopqrstuvwxyxz0123456789'.split('')  // characters to display
 
 // Fisher-Yates shuffle
 const shuffle = (array) => {
