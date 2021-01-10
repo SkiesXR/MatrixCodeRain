@@ -54,7 +54,7 @@ const createContainers = () => {
   return containerStates
 }
 
-function createMatrixCode () {
+(function createMatrixCode () {
   this.state = { ... createContainers()}
   const shuffledContainerIndexes = shuffle(Object.keys(this.state))
   
@@ -91,19 +91,17 @@ function createMatrixCode () {
   // Iterate through length of container creating & destroying random chars
   const fillContainer = (containerIndex) => {
     this.state[containerIndex] = filling
+
     for (let i = 0; i < numVerticalCharacters; i++) {
       const idx = Math.floor(Math.random() * alphabet.length)
-      setTimeout(() => {
-        createAndDestroyLetter(alphabet[idx], containerIndex, i)
-      }, i * characterCreationDelay)
+      setTimeout(() => createAndDestroyLetter(alphabet[idx], containerIndex, i), i * characterCreationDelay)
     }
   }
 
+  // Empty a container, refill with characters
   const emptyAndRefillContainer = (containerIndex) => {
     const container = document.getElementById(`container-${containerIndex}`)
     container.innerHTML = ""
     fillContainer(containerIndex)
   }
-}
-
-createMatrixCode()
+})()
