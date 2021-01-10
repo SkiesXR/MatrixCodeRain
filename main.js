@@ -34,13 +34,22 @@ const createLetter = (char, containerIndex, verticalCharacterIndex) => {
   return letter
 }
 
-// Add & remove letter from DOM
 const createAndDestroyLetter = (char, containerIndex, verticalCharacterIndex) => {
   const letter = createLetter(char, containerIndex, verticalCharacterIndex)
+  // Add letter to DOM container
   setTimeout(() => document.getElementById(`container-${containerIndex}`).appendChild(letter), 1000)
+  // Randomly determine letters that should swap characters
+  Math.random() < 0.5 && setTimeout(() => changeLetter(letter), 2000)
   setTimeout(() => letter.classList.add('invisible'), 6000)
 }
 
+// Randomly change letters before they disappear
+const changeLetter = (letter) => {
+  const randomCharIdx = Math.floor(Math.random() * alphabet.length)
+  letter.innerText = `${alphabet[randomCharIdx]}`
+}
+
+// Create a vertical container that holds Matrix characters
 const createContainer = (containerIndex) => {
   const container = document.createElement('div')
   container.className = 'container'
@@ -58,6 +67,7 @@ const fillContainer = (containerIndex) => {
   }
 }
 
+// Create containers across the width of the screen
 const createContainers = () => {
   const containers = []
   for (let i = 0; i < numContainers; i++) {
@@ -78,6 +88,5 @@ const createContainers = () => {
 })()
 
 /* Problems to solve
-1) Once all characters in container disappear, allow it to be fillable again
-2) Allow created characters to change to other characters before disappearing
+- Once all characters in container disappear, allow it to be fillable again
 */
