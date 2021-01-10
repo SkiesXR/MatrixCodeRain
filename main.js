@@ -31,7 +31,7 @@ const createContainer = (containerIndex) => {
 const loopThroughAlphabet = (containerIdx) => alphabet.forEach((char, i) => {
   setTimeout(() => {
     createAndDestroyLetter(char, containerIdx)
-  }, i * 1000)
+  }, i * 100)
 })
 
 for (let i = 0; i < 10; i++) {
