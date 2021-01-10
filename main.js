@@ -7,10 +7,16 @@ const createAndDestroyLetter = () => {
   letter.innerText = 'a'
   letter.setAttribute('id', 'a')
   letter.className = 'animated'
-  setTimeout(() => container.appendChild(letter), 1000)
+
+  // attempt to create & destroy letter. Log error if this process fails
+  try {
+    create(letter).then(() => destroy(letter))
+  } catch (e) {
+    console.log('failed to create & destroy letter')
+  }
 }
 
-// Remove the letter from the page
-const removeLetter = () => setTimeout(() => document.getElementById('a').remove(), 3000)
+const create = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(container.appendChild(letter)), 1000))
+const destroy = (letter) => new Promise((resolve, reject) => setTimeout(() => resolve(letter.remove()), 3000))
 
 createAndDestroyLetter()
