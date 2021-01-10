@@ -32,6 +32,7 @@ export const createContainer = (containerIndex) => {
 }
 
 // Create containers across the width of the screen
+// Returns an object where each key is a container ID and each value is a container status
 export const createContainers = () => {
   const containers = []
   const containerStates = {}
