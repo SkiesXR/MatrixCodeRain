@@ -14,9 +14,10 @@ import { filling, finished } from './constants.js'
 
   function fillAllContainers() {
     let index = 0;
-    setInterval(() => {
+    const timer = setInterval(() => {
       fillContainer(shuffledContainerIndexes[index])
       index++
+      if (index === shuffledContainerIndexes.length) clearInterval(timer)
     }, 100)
   }
 
