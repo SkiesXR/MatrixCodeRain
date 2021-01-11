@@ -11,10 +11,14 @@ import { filling, finished } from './constants.js'
   const alphabet = 'abcdefghijklmnopqrstuvwxyxz0123456789'.split('')  // characters to display
   const state = { ... createContainers()}
   const shuffledContainerIndexes = shuffle(Object.keys(state))
-  
-  shuffledContainerIndexes.forEach((containerIndex, i) => {
-    setTimeout(() => fillContainer(containerIndex), i * containerCreationDelay)
-  })
+
+  function fillAllContainers() {
+    let index = 0;
+    setInterval(() => {
+      fillContainer(shuffledContainerIndexes[index])
+      index++
+    }, 100)
+  }
 
   // Create the letter element, have it animate from white to green and then remove opacity
   const createLetter = (char, containerIndex, verticalCharacterIndex) => {
@@ -50,6 +54,13 @@ import { filling, finished } from './constants.js'
       const idx = Math.floor(Math.random() * alphabet.length)
       setTimeout(() => createAndDestroyLetter(alphabet[idx], containerIndex, i), i * characterCreationDelay)
     }
+
+    // let index = 0;
+    // setInterval(() => {
+    //   const idx = Math.floor(Math.random() * alphabet.length)
+    //   createAndDestroyLetter(alphabet[idx], containerIndex, index)
+    //   index++
+    // }, characterCreationDelay)
   }
 
   // Empty a container, refill with characters
@@ -58,4 +69,6 @@ import { filling, finished } from './constants.js'
     container.innerHTML = ""
     fillContainer(containerIndex)
   }
+
+  fillAllContainers()
 })()
