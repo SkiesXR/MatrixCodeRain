@@ -51,17 +51,13 @@ import { filling, finished } from './constants.js'
   const fillContainer = (containerIndex) => {
     state[containerIndex] = filling
 
-    for (let i = 0; i < numVerticalCharacters; i++) {
+    let index = 0;
+    const timer = setInterval(() => {
       const idx = Math.floor(Math.random() * alphabet.length)
-      setTimeout(() => createAndDestroyLetter(alphabet[idx], containerIndex, i), i * characterCreationDelay)
-    }
-
-    // let index = 0;
-    // setInterval(() => {
-    //   const idx = Math.floor(Math.random() * alphabet.length)
-    //   createAndDestroyLetter(alphabet[idx], containerIndex, index)
-    //   index++
-    // }, characterCreationDelay)
+      createAndDestroyLetter(alphabet[idx], containerIndex, index)
+      index++
+      if (index === numVerticalCharacters.length) clearInterval(timer)
+    }, characterCreationDelay)
   }
 
   // Empty a container, refill with characters
